@@ -3,7 +3,7 @@ import { createThirdwebClient, getContract, sendTransaction } from "thirdweb";
 import {claimTo} from "thirdweb/extensions/erc1155";
 import {sepolia} from "thirdweb/chains";
 import dotenv from "dotenv";
-import { privateKeyAccount } from 'thirdweb/wallets';
+import { privateKeyAccount, getWalletBalance } from 'thirdweb/wallets';
 
 dotenv.config();
 

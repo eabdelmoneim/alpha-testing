@@ -1,6 +1,6 @@
 {
   "dependencies": {
     "dotenv": "^16.4.5",
-    "thirdweb": "^5.0.3-nightly-eba8f1c19839ad89391d03271ef96b51d5f515ed-20240329195238"
+    "thirdweb": "^5.2.0"
   }
 }
