@@ -3,7 +3,7 @@ import { createThirdwebClient, getContract, sendTransaction } from "thirdweb";
 import {claimTo} from "thirdweb/extensions/erc1155";
 import {sepolia} from "thirdweb/chains";
 import dotenv from "dotenv";
-import { privateKeyAccount, getWalletBalance } from 'thirdweb/wallets';
+import { privateKeyToAccount, getWalletBalance } from 'thirdweb/wallets';
 
 dotenv.config();
 
@@ -15,7 +15,7 @@ const client = createThirdwebClient({
   secretKey: process.env.THIRDWEB_SECRET_KEY as string,
 });
 
-const account = privateKeyAccount({
+const account = privateKeyToAccount({
   client,
   privateKey: process.env.THIRDWEB_ADMIN_PRIVATE_KEY as string,
 });
