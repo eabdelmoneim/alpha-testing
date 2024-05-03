@@ -1,6 +1,5 @@
 
-import { createThirdwebClient, getContract, sendTransaction, defineChain } from "thirdweb";
-import {balanceOf} from "thirdweb/extensions/erc1155";
+import { createThirdwebClient, defineChain } from "thirdweb";
 import dotenv from "dotenv";
 import { privateKeyToAccount, getWalletBalance } from 'thirdweb/wallets';
 
