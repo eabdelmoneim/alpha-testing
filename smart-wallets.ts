@@ -54,7 +54,7 @@ const transaction = addSessionKey({
   },
 });
 
-const tx = await sendTransaction({ transaction, account: eoaAccount }); // if gasless=false then the account tx is being sent from must have funds to pay for the gas
+const tx = await sendTransaction({ transaction, account: eoaAccount }); // if gasless=false then the account tx is being sent from must have funds to pay for the gas so use eoaAccount, if gasless=true then the smartAccount can be used
 console.log("added session key: " + tx.transactionHash);
 }
 run()
