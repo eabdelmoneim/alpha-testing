@@ -24,7 +24,7 @@ const eoaAccount = privateKeyToAccount({
 const wallet = smartWallet({
   factoryAddress: "0x2767F0168EcAe8e46e6C0D963Bc3774844d7EA89",
   chain: base,
-  gasless: false,
+  gasless: true,
 });
 
 const smartAccount = await wallet.connect({
@@ -54,7 +54,7 @@ const transaction = addSessionKey({
   },
 });
 
-const tx = await sendTransaction({ transaction, account: eoaAccount }); // if gasless=false then the account tx is being sent from must have funds to pay for the gas so use eoaAccount, if gasless=true then the smartAccount can be used
+const tx = await sendTransaction({ transaction, account: smartAccount }); // if gasless=false then the account tx is being sent from must have funds to pay for the gas so use eoaAccount, if gasless=true then the smartAccount can be used
 console.log("added session key: " + tx.transactionHash);
 }
 run()
