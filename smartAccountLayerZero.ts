@@ -2,7 +2,7 @@
 import { createThirdwebClient,getContract,readContract, sendTransaction, resolveMethod, prepareContractCall } from "thirdweb";
 import dotenv from "dotenv";
 import { privateKeyToAccount, smartWallet } from 'thirdweb/wallets';
-import { arbitrumSepolia } from 'thirdweb/chains';
+import { arbitrumSepolia, defineChain } from 'thirdweb/chains';
 import { ethers } from "ethers";
 
 dotenv.config();
@@ -20,10 +20,17 @@ const eoaAccount = privateKeyToAccount({
   privateKey: process.env.THIRDWEB_ADMIN_PRIVATE_KEY as string,
 });
 
+// check environment variable to get chain
+const chainSwitch = process.env.LAYER_ZERO_CHAIN as string;
+let chain = arbitrumSepolia;
+if(chainSwitch === "xai") {
+  chain = defineChain(37714555429);
+}
+
 
 const wallet = smartWallet({
   factoryAddress: "0x21D969107D87C76F894D305cFdC98e2F019A3A2c",
-  chain: arbitrumSepolia,
+  chain: chain,
   gasless: true,
 });
 
@@ -35,14 +42,14 @@ console.log("connected smart Account: " + smartAccount.address);
 
 const nftContract =  getContract({
   client,
-  chain: arbitrumSepolia,
-  address: "0x481F5dc1f5727E93c510E0Fa5f02bc4F74d78c82",
+  chain: chain,
+  address: process.env.LAYER_ZERO_NFT_CONTRACT_ADDRESS as string,
 });
 
 console.log("got contract: " + nftContract.address);
 
 const adapterParams = ethers.solidityPacked(["uint16", "uint256"], [1, 500000]);
-console.log("adapter params: " + adapterParams);
+console.log("generated adapter params: " + adapterParams);
 
 const estimateGas = await readContract({
   contract: nftContract,
@@ -52,7 +59,7 @@ const estimateGas = await readContract({
 
 const value = BigInt(estimateGas[0] as string);
 
-console.log("estimate gas: " + value);
+console.log("estimated gas for sending: " + value);
 
 const transaction = prepareContractCall({
   contract: nftContract,
