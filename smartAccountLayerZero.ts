@@ -33,7 +33,7 @@ const smartAccount = await wallet.connect({
 });
 console.log("connected smart Account: " + smartAccount.address);
 
-const nftContract = await getContract({
+const nftContract =  getContract({
   client,
   chain: arbitrumSepolia,
   address: "0x481F5dc1f5727E93c510E0Fa5f02bc4F74d78c82",
