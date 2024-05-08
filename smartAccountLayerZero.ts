@@ -23,10 +23,11 @@ const eoaAccount = privateKeyToAccount({
 // check environment variable to get chain
 const chainSwitch = process.env.LAYER_ZERO_CHAIN as string;
 let chain = arbitrumSepolia;
+let lzEndPointId=10251;
 if(chainSwitch === "xai") {
   chain = defineChain(37714555429);
+  lzEndPointId=10231;
 }
-
 
 const wallet = smartWallet({
   factoryAddress: "0x21D969107D87C76F894D305cFdC98e2F019A3A2c",
@@ -54,7 +55,7 @@ console.log("generated adapter params: " + adapterParams);
 const estimateGas = await readContract({
   contract: nftContract,
   method: resolveMethod("estimateSendFee"),
-  params: [10251, smartAccount.address, 1, false, adapterParams],
+  params: [lzEndPointId, smartAccount.address, 1, false, adapterParams],
 });
 
 const value = BigInt(estimateGas[0] as string);
@@ -65,7 +66,7 @@ const transaction = prepareContractCall({
   contract: nftContract,
   method: resolveMethod("sendFrom"),
   value: value,
-  params: [smartAccount.address,10251,smartAccount.address,59, smartAccount.address, smartAccount.address, adapterParams],
+  params: [smartAccount.address,lzEndPointId,smartAccount.address,59, smartAccount.address, smartAccount.address, adapterParams],
 });
 
 const tx = await sendTransaction({ transaction, account: smartAccount });
