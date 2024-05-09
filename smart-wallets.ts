@@ -33,7 +33,7 @@ const smartAccount = await wallet.connect({
 });
 console.log("connected smart Account: " + smartAccount.address);
 
-const contract = await getContract({
+const contract = getContract({
   client,
   chain: base,
   address: smartAccount.address,
