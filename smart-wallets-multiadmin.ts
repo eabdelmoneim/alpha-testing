@@ -31,7 +31,7 @@ const smartAccount = await wallet.connect({
   client,
   personalAccount: eoaAccount,
 });
-console.log("connected smart Account: " + smartAccount.address);
+console.log("connected smart Account without override: " + smartAccount.address);
 
 const contract = getContract({
   client,
@@ -44,9 +44,8 @@ const addresses = await getAccountsOfSigner({
   signer: eoaAccount.address,
 });
 
-console.log("addresses: " + addresses);
+console.log("signer accounts addresses: " + addresses);
 
-console.log("will connect smart account: " + addresses[0]);
 const wallet2 = smartWallet({
   factoryAddress: "0xCE7Ca70f626730B4E2E1BC56B55fc5347a9e8235",
   chain: arbitrumSepolia,
@@ -61,7 +60,7 @@ const smartAccount2 = await wallet2.connect({
   personalAccount: eoaAccount,
 });
 
-console.log("connected to 2nd smart Account: " + smartAccount2.address);
+console.log("connected to 2nd smart Account with override: " + smartAccount2.address);
 
 }
 run()
