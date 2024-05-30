@@ -13,6 +13,11 @@ const run = async () => {
 // connect to the SDK with the wallet using the relayer URL for the Mumbai testnet
 const client = createThirdwebClient({
   secretKey: process.env.THIRDWEB_SECRET_KEY as string,
+  config: {
+    rpc: {
+      
+    }
+  }
 });
 
 const eoaAccount = privateKeyToAccount({

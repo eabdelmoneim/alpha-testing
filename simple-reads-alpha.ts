@@ -1,6 +1,7 @@
 
-import { createThirdwebClient, getContract } from "thirdweb";
+import { createThirdwebClient, getContract, defineChain } from "thirdweb";
 import {baseSepolia} from "thirdweb/chains";
+import { getNFTs } from "thirdweb/extensions/erc1155";
 import {balanceOf} from "thirdweb/extensions/erc721"
 import dotenv from "dotenv";
 
@@ -16,16 +17,17 @@ const client = createThirdwebClient({
 
 const contract = getContract({
   client, 
-  address: "0xC5e6BbEc31F690BCc4E95E36f3f2Cf7f2FdEDF1c",
-  chain: baseSepolia,
+  address: "0xdbc9eEd6528ef87401a7F78E4D468562fC12450E",
+  chain: defineChain(37714555429),
 });
 
-const balance = await balanceOf({
+const nfts = await getNFTs({
   contract,
-  owner: "0x749CaA9A7bbF7D5aEb8Ea6E92335AFa2f74dE4EE",
+  start: 0,
+  count: 1000,
 });
-console.log(balance.toString());
 
+console.log(nfts.length);
 };
 run()
   .then(() => process.exit(0))

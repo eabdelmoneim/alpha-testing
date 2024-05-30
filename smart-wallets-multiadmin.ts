@@ -55,9 +55,20 @@ const wallet2 = smartWallet({
   }
 });
 
+const eoaAccount2 = privateKeyToAccount({
+  client,
+  privateKey: process.env.THIRDWEB_ADMIN_PRIVATE_KEY2 as string,
+});
+
+const addresses2 = await getAccountsOfSigner({
+  contract: contract,
+  signer: eoaAccount2.address,
+});
+console.log("signer accounts addresses: " + addresses2);
+
 const smartAccount2 = await wallet2.connect({
   client,
-  personalAccount: eoaAccount,
+  personalAccount: eoaAccount2,
 });
 
 console.log("connected to 2nd smart Account with override: " + smartAccount2.address);
