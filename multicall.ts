@@ -26,7 +26,7 @@ let contract = getContract({
   chain: ethereum,
 });
 
-const encodedTxArray: `0x${string}`[] = [];
+const encodedTxArray: { target: string; callData: `0x${string}`; }[] = [];
 
 for (let index = 1; index < 222; index++) {
 
@@ -37,7 +37,11 @@ for (let index = 1; index < 222; index++) {
   });
 
   let encodedTx = await encode(preparedTx);
-  encodedTxArray.push(encodedTx);
+  let payload = {
+    target: contract.address,
+    callData: encodedTx,
+  }
+  encodedTxArray.push(payload);
 }
 
 const multiCallContract = getContract({
