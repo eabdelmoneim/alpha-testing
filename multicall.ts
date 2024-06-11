@@ -1,8 +1,9 @@
 
-import { createThirdwebClient, defineChain, getContract, prepareContractCall, encode, sendTransaction } from "thirdweb";
+import { createThirdwebClient, getContract, prepareContractCall, encode, sendAndConfirmTransaction } from "thirdweb";
 import { base, ethereum } from 'thirdweb/chains';
 import dotenv from "dotenv";
 import { privateKeyToAccount } from 'thirdweb/wallets';
+import { aggregate } from "thirdweb/extensions/multicall3";
 
 
 dotenv.config();
@@ -32,7 +33,7 @@ for (let index = 1; index < 222; index++) {
 
   const preparedTx =  prepareContractCall({
     contract,
-    method: "function ownerOf(uint256)",
+    method: "function ownerOf(uint256 tokenId) view returns (address)",
     params: [BigInt(index)],
   });
 
@@ -50,50 +51,12 @@ const multiCallContract = getContract({
   chain: base,
 });
 
-const preparedMultiCall = prepareContractCall({
+const preparedMultiCall = aggregate({
   contract: multiCallContract,
-  method: {
-    type: "function",
-    name: "aggregate",
-    inputs: [
-      {
-        type: "tuple[]",
-        name: "calls",
-        components: [
-          {
-            type: "address",
-            name: "target",
-            internalType: "address",
-          },
-          {
-            type: "bytes",
-            name: "callData",
-            internalType: "bytes",
-          },
-        ],
-        internalType: "struct Multicall3.Call[]",
-      },
-    ],
-    outputs: [
-      {
-        type: "uint256",
-        name: "blockNumber",
-        internalType: "uint256",
-      },
-      {
-        type: "bytes[]",
-        name: "returnData",
-        internalType: "bytes[]",
-      },
-    ],
-    stateMutability: "payable",
-  },
-  params: [
-  encodedTxArray
-],
+  calls: encodedTxArray,
 });
 
-const transactionResult = await sendTransaction({ transaction: preparedMultiCall, account });
+const transactionResult = await sendAndConfirmTransaction({ transaction: preparedMultiCall, account });
 
 }
 run()
