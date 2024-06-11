@@ -2,9 +2,8 @@
 import { createThirdwebClient, defineChain, getContract, prepareContractCall, encode, sendTransaction } from "thirdweb";
 import { base, ethereum } from 'thirdweb/chains';
 import dotenv from "dotenv";
-import { privateKeyToAccount, getWalletBalance } from 'thirdweb/wallets';
-import { ownerOf } from "thirdweb/extensions/erc721";
-import { aggregate } from "thirdweb/extensions/multicall3";
+import { privateKeyToAccount } from 'thirdweb/wallets';
+
 
 dotenv.config();
 
