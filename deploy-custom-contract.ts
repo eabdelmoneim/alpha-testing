@@ -1,9 +1,7 @@
 
-import { createThirdwebClient, defineChain, getContract, hexToNumber, sendTransaction, stringToHex } from "thirdweb";
-import {claimTo} from "thirdweb/extensions/erc1155";
-import {sepolia} from "thirdweb/chains";
+import { createThirdwebClient, defineChain, stringToHex } from "thirdweb";
 import dotenv from "dotenv";
-import { privateKeyToAccount, getWalletBalance } from 'thirdweb/wallets';
+import { privateKeyToAccount } from 'thirdweb/wallets';
 import { deployContract } from "thirdweb/deploys";
 
 dotenv.config();
@@ -32,23 +30,20 @@ const contractAddress = await deployContract({
   constructorAbi: {
         inputs: [
           {
-            "internalType": "string",
             "name": "name_",
             "type": "string"
           },
           {
-            "internalType": "string",
             "name": "symbol_",
             "type": "string"
           },
           {
-            "internalType": "string",
             "name": "baseTokenURI_",
             "type": "string"
           }
         ],
         type: 'constructor',
-        stateMutability: "nonpayable"
+        stateMutability: 'nonpayable'
       },
       constructorParams: ['Gaming Collection', 'GCC', 'blah'],
 });
