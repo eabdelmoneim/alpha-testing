@@ -1,7 +1,8 @@
 {
   "dependencies": {
+    "@thirdweb-dev/engine": "^0.0.9",
     "dotenv": "^16.4.5",
     "ethers": "^6.12.1",
-    "thirdweb": "^5.17.0"
+    "thirdweb": "^5"
   }
 }
