@@ -25,7 +25,7 @@ async function main() {
     // Use the getNFT extension to retrieve the NFT with id=0
     const nft = await getNFT({
       contract,
-      tokenId: 0n,
+      tokenId: 224n,
     });
 
     console.log("NFT with id 0:", nft);
